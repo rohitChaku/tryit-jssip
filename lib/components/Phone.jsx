@@ -363,11 +363,12 @@ export default class Phone extends React.Component
 					audio : true,
 					video : false
 				},
-				rtcOfferConstraints :
+				rtcOfferConstraints	:
 				{
 					offerToReceiveAudio : 1,
 					offerToReceiveVideo : 0
-				}
+				},
+				sessionTimersExpires : 120
 			});
 
 		session.on('connecting', () =>
