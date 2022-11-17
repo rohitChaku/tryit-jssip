@@ -12,19 +12,19 @@ Check it online at https://tryit.jssip.net
 * Install dependencies:
 
 ```bash
-$ npm install
+$ npm install --legacy-peer-deps
 ```
 
 * Globally install the NPM `gulp-cli` package:
 
 ```bash
-$ npm install -g gulp-cli
+$ npm install gulp-cli --legacy-peer-deps
 ```
 
 * Build the app (check the [gulpfile](./gulpfile.js) file for details):
-  * `gulp prod` generates the app in production/minified mode.
-  * `gulp dev` generates the app in development mode.
-  * `gulp live` generates the app in development mode, opens the local website and watches for changes in the source code.
+  * `./node_modules/gulp/bin/gulp.js prod` generates the app in production/minified mode.
+  * `./node_modules/gulp/bin/gulp.js dev` generates the app in development mode.
+  * `./node_modules/gulp/bin/gulp.js live` generates the app in development mode, opens the local website and watches for changes in the source code.
 
 * Once built, the `out/` directory is created with all the HTML, CSS and JavaScript files to be deployed in your own server.
 

@@ -42,7 +42,7 @@ const autoprefixer = require('autoprefixer-stylus');
 const cssBase64 = require('gulp-css-base64');
 const browserSync = require('browser-sync');
 
-const PKG = require('./package.json');
+const PKG = require('./package');
 const BANNER = fs.readFileSync('banner.txt').toString();
 const BANNER_OPTIONS =
 {
@@ -227,7 +227,7 @@ gulp.task('openbrowser', (done) =>
 			{
 				baseDir : OUTPUT_DIR
 			},
-			https     : true,
+			https     : false,
 			ghostMode : false,
 			files     : path.join(OUTPUT_DIR, '**', '*')
 		});

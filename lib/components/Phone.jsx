@@ -361,12 +361,12 @@ export default class Phone extends React.Component
 				mediaConstraints :
 				{
 					audio : true,
-					video : true
+					video : false
 				},
 				rtcOfferConstraints :
 				{
 					offerToReceiveAudio : 1,
-					offerToReceiveVideo : 1
+					offerToReceiveVideo : 0
 				}
 			});
 
