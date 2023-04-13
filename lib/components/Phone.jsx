@@ -301,6 +301,25 @@ export default class Phone extends React.Component
 						incomingSession : null
 					});
 			});
+
+			let myCandidateTimeout = null;
+
+			session.on('icecandidate', function(candidate)
+			{
+				logger.debug(`getting a candidate ${candidate.candidate.candidate}`);
+				if (myCandidateTimeout != null)
+					clearTimeout(myCandidateTimeout);
+
+				// 200ms timeout after the last icecandidate received!
+				myCandidateTimeout = setTimeout(candidate.ready, 200);
+			});
+
+			const errList = [ 'getusermediafailed', 'peerconnection:createofferfailed', 'peerconnection:createanswerfailed',
+				'peerconnection:setlocaldescriptionfailed', 'peerconnection:setremotedescriptionfailed' ];
+
+			for (const e in errList)
+				if (errList.hasOwnProperty(e))
+					session.on(e, (err) => logger.error(err));
 		});
 
 		this._ua.start();
@@ -365,8 +384,8 @@ export default class Phone extends React.Component
 				},
 				rtcOfferConstraints	:
 				{
-					offerToReceiveAudio : 1,
-					offerToReceiveVideo : 0
+					offerToReceiveAudio : true,
+					offerToReceiveVideo : false
 				},
 				sessionTimersExpires : 120
 			});
@@ -405,6 +424,18 @@ export default class Phone extends React.Component
 		{
 			audioPlayer.stop('ringback');
 			audioPlayer.play('answered');
+		});
+
+		let myCandidateTimeout = null;
+
+		session.on('icecandidate', function(candidate)
+		{
+			logger.debug(`getting a candidate ${candidate.candidate.candidate}`);
+			if (myCandidateTimeout != null)
+				clearTimeout(myCandidateTimeout);
+
+			// 200ms timeout after the last icecandidate received!
+			myCandidateTimeout = setTimeout(candidate.ready, 200);
 		});
 	}
 

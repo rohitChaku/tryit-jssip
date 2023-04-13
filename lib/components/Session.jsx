@@ -261,6 +261,18 @@ export default class Session extends React.Component
 			}
 		});
 
+		let myCandidateTimeout = null;
+
+		session.on('icecandidate', function(candidate)
+		{
+			logger.debug(`getting a candidate ${candidate.candidate.candidate}`);
+			if (myCandidateTimeout != null)
+				clearTimeout(myCandidateTimeout);
+
+			// 200ms timeout after the last icecandidate received!
+			myCandidateTimeout = setTimeout(candidate.ready, 200);
+		});
+
 		peerconnection.addEventListener('addstream', (event) =>
 		{
 			logger.debug('peerconnection "addstream" event');
